@@ -85,7 +85,7 @@ def links_section():
     linkedin_link = f'<a href="{"https://www.linkedin.com/in/william-li-b0142b290/"}"><img src = "{"https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"}" alt = "LinkedIn" width = "75" height = "75">'
     st.sidebar.markdown(linkedin_link, unsafe_allow_html=True)
     st.sidebar.text("Checkout our work")
-    github_link = f'<a href="{"https://github.gatech.edu/wli696"}"><img src = "{"info.github_image_url"}" alt = "Github" width = "65" height = "65">'
+    github_link = f'<a href="{"https://github.gatech.edu/wli696"}"><img src = "{"https://cdn-icons-png.flaticon.com/256/25/25231.png"}" alt = "Github" width = "65" height = "65">'
     st.sidebar.markdown(github_link, unsafe_allow_html=True)
     st.sidebar.text("Or email us!")
     email_html = f'<a href="{"liwilliam12@gmail.com"}"><img src = "{"https://logowik.com/content/uploads/images/513_email.jpg"}" alt = "Email" width = "75" height = "75">'
