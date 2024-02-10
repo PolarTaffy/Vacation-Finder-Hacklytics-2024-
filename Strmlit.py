@@ -3,16 +3,17 @@ import streamlit as st
 
 prompt = ""
 
-def welcomeText():
-    
+def welcomeText():   
     st.title("Tour Around the World!")
     st.header("Let's talk about your trip details.")
+    st.subheader("Fill out this form to generate a dream vacatio for you!")
 
 welcomeText()
 
 
 #THE USER INPUTS
 
+#number inputs
 numPeople = st.number_input("How many people are coming?", min_value=1)  #number of people going 
     
     
@@ -51,23 +52,14 @@ if cultureConnect:
 
 regions = ["North America", "South America", "Australia", "Asia", "Africa", "Europe"]
 desiredRegions = st.multiselect("What region of the world would you prefer?", regions) #can select multiple regions in which they can travel to
-
-
-
-    
-
-
-
-                              
-
-
+st.write('You selected:', desiredRegions)
 
 
 
 # methods
 def returnOutput(prompt):
     
-    prompt = "Plan an affordable vacation on a $" + str(budget) + ' for ' + str(numPeople) + ' people. I want a ' + urbRur + ' place and ' + nightlife + " " + family
+    prompt = "Plan an affordable vacation on a $" + str(budget) + ' for ' + str(numPeople) + ' people. I want a ' + urbRur + ' place and ' + nightlife + " " + family + " These are the regions I prefer: " + desiredRegions + ". "
     aiResponse = "Not yet implemented"
 
     st.header("Prompt (Debug Purposes)")
@@ -86,5 +78,17 @@ if st.button("Plan my vacation!"):
 
 
 
-
+#side bar links PUT YOUR INFO
+def links_section():
+    st.sidebar.header("Links")
+    st.sidebar.text("Connect with us on Linkedin")
+    linkedin_link = f'<a href="{"https://www.linkedin.com/in/william-li-b0142b290/"}"><img src = "{"https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"}" alt = "LinkedIn" width = "75" height = "75">'
+    st.sidebar.markdown(linkedin_link, unsafe_allow_html=True)
+    st.sidebar.text("Checkout our work")
+    github_link = f'<a href="{"https://github.gatech.edu/wli696"}"><img src = "{"info.github_image_url"}" alt = "Github" width = "65" height = "65">'
+    st.sidebar.markdown(github_link, unsafe_allow_html=True)
+    st.sidebar.text("Or email us!")
+    email_html = f'<a href="{"liwilliam12@gmail.com"}"><img src = "{"https://logowik.com/content/uploads/images/513_email.jpg"}" alt = "Email" width = "75" height = "75">'
+    st.sidebar.markdown(email_html, unsafe_allow_html=True)
+links_section()
 
