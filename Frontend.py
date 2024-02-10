@@ -1,4 +1,5 @@
 import streamlit as st
+from modelComms import askGPT
 
 
 prompt = ""
@@ -60,7 +61,7 @@ st.write('You selected:', desiredRegions)
 def returnOutput(prompt):
     
     prompt = "Plan an affordable vacation on a $" + str(budget) + ' for ' + str(numPeople) + ' people. I want a ' + urbRur + ' place and ' + nightlife + " " + family + " These are the regions I prefer: " + desiredRegions + ". "
-    aiResponse = "Not yet implemented"
+    aiResponse = askGPT(prompt)
 
     st.header("Prompt (Debug Purposes)")
     st.write(prompt)
@@ -87,24 +88,24 @@ def links_section():
     linkedin_link = f'<a href="{"https://www.linkedin.com/in/william-li-b0142b290/"}"><img src = "{"https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"}" alt = "LinkedIn" width = "75" height = "75">'
     st.sidebar.markdown(linkedin_link, unsafe_allow_html=True)
 
-    #linkedin_link1 = f'<a href="{"PUT YOUR LINKEDIN LINK HERE"}"><img src = "{"https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"}" alt = "LinkedIn" width = "75" height = "75">'
-    #st.sidebar.markdown(linkedin_link1, unsafe_allow_html=True)
+    linkedin_link1 = f'<a href="{"https://www.linkedin.com/in/evan-thomas-68b93a247/"}"><img src = "{"https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"}" alt = "LinkedIn" width = "75" height = "75">'
+    st.sidebar.markdown(linkedin_link1, unsafe_allow_html=True)
 
 
     st.sidebar.text("Checkout our work")
     github_link = f'<a href="{"https://github.gatech.edu/williamli12"}"><img src = "{"https://cdn-icons-png.flaticon.com/256/25/25231.png"}" alt = "Github" width = "65" height = "65">'
     st.sidebar.markdown(github_link, unsafe_allow_html=True)
 
-    #github_link1 = f'<a href="{"PUT YOUR GUTHUB LINK HERE"}"><img src = "{"https://cdn-icons-png.flaticon.com/256/25/25231.png"}" alt = "Github" width = "65" height = "65">'
-    #st.sidebar.markdown(github_link1, unsafe_allow_html=True)
+    github_link1 = f'<a href="{"https://github.com/PolarTaffy"}"><img src = "{"https://cdn-icons-png.flaticon.com/256/25/25231.png"}" alt = "Github" width = "65" height = "65">'
+    st.sidebar.markdown(github_link1, unsafe_allow_html=True)
 
 
     st.sidebar.text("Or email us!")
     email_html = f'<a href="{"liwilliam12@gmail.com"}"><img src = "{"https://logowik.com/content/uploads/images/513_email.jpg"}" alt = "Email" width = "75" height = "75">'
     st.sidebar.markdown(email_html, unsafe_allow_html=True)
 
-    #email_html1 = f'<a href="{"PUT YOUR EMAIL LINK HERE"}"><img src = "{"https://logowik.com/content/uploads/images/513_email.jpg"}" alt = "Email" width = "75" height = "75">'
-    #st.sidebar.markdown(email_html1, unsafe_allow_html=True)
+    email_html1 = f'<a href="{"thomasevan1248@gmail.com"}"><img src = "{"https://logowik.com/content/uploads/images/513_email.jpg"}" alt = "Email" width = "75" height = "75">'
+    st.sidebar.markdown(email_html1, unsafe_allow_html=True)
 
     
 links_section()
