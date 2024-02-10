@@ -6,6 +6,9 @@ st.header("Let's talk about your trip details.")
 
 numPeople = st.number_input("How many people are coming?", min_value=1)
 budget = st.slider("What's your budget?", 100, 10000)
+isNightlife = st.checkbox("Nightlife?")
+
+                              
 
 
 
