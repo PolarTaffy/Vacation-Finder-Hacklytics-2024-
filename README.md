@@ -31,20 +31,14 @@ Upon launching the application, you'll be greeted with a welcome message and pro
 
 - **Connect with us on Linkedin:**
   - [Evan Thomas](https://www.linkedin.com/in/evan-thomas-68b93a247/)
-    ![LinkedIn](https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg){width=75 height=75}
   - [William Li](https://www.linkedin.com/in/william-li-b0142b290/)
-    ![LinkedIn](https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg){width=75 height=75}
 
 
 - **Check out our work on GitHub:**
   - [Evan Thomas](https://github.com/PolarTaffy)
-    ![GitHub](https://cdn-icons-png.flaticon.com/256/25/25231.png){width=65 height=65}
   - [William Li](https://github.gatech.edu/williamli12)
-    ![GitHub](https://cdn-icons-png.flaticon.com/256/25/25231.png){width=65 height=65}
 
 
 - **Or email us at:**
   - thomasevan1248@gmail.com
-    ![Email](https://logowik.com/content/uploads/images/513_email.jpg){width=75 height=75}
   - liwilliam12@gmail.com
-    ![Email](https://logowik.com/content/uploads/images/513_email.jpg){width=75 height=75}
