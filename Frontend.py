@@ -5,7 +5,6 @@ import languagemodels as lm
 lm.config["max_ram"] = "4gb"
 
 
-
 prompt = ""  # this will be used as the input to the generative AI
 
 def welcomeText():   #just a welcome to the site
@@ -30,9 +29,6 @@ def dayList(prompt):  #this called the model and then splits the paragraph into 
     paraList = re.split(r'(?=\bDay\b)', paragraph)
     return paraList
     
-
-
-
 
 #THE USER INPUTS
 # TODO Add day count, split up responses into paragraphs, make region list functional, ADD NAMES 
@@ -85,7 +81,6 @@ for i in range(desiredRegions):  #converting the regions into a giant string
     if i != (len(desiredRegions) + 1):
         regionStr += " ,"
 st.write("---")
-
 
 
 # methods
@@ -146,7 +141,3 @@ def links_section():
     st.sidebar.markdown(email_html1, unsafe_allow_html=True)
 
 links_section()
-
-
-
-
