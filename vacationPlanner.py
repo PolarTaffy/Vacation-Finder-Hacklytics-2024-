@@ -7,8 +7,8 @@ st.set_page_config(
     page_title="WanderBot Demo",
     page_icon="👋",
 )
-lm.config["max_ram"] = "4gb"
-#lm.config["max_tokens"] = 500;
+lm.config["max_ram"] = "8gb"
+lm.config["max_tokens"] = 500;
 
 #streamlit run vacationPlanner.py
 
