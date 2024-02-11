@@ -1,3 +1,0 @@
-from transformers import pipeline
-generator = pipeline('text-generation', model='huggyllama/llama-7b')
-print(generator("You are an assistant that tells users based on what they tell you where they should go for vacation. Based on their specifications, you should give them a vacation spot and suggest some activities. Client: Plan an affordable vacation on a $1546 for 1 people. I want a very urban place and I want the location to be family friendly.", num_return_sequences=1))
