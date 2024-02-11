@@ -7,7 +7,8 @@ st.set_page_config(
     page_title="WanderBot Demo",
     page_icon="👋",
 )
-lm.config["max_ram"] = "8gb"
+lm.config["max_ram"] = "4gb"
+#lm.config["max_tokens"] = 500;
 
 #streamlit run vacationPlanner.py
 
@@ -15,11 +16,13 @@ prompt = ""  # this will be used as the input to the  AI
 
 def welcomeText():   #just a welcome to the site
     st.title("WanderBot Demo")
+    st.subheader("Discover the world with ease. Where every journey begins.")
+
     st.write("WanderBot is a chatbot that plans a trip around the world, custom-made to suit your preferences!")
     st.write("---")
     st.header("Let's talk about your trip details.")
-    st.subheader("Fill out this form to generate a dream vacation for you!")
-    st.write("---")
+    #st.subheader("Fill out this form to generate a dream vacation for you!")
+    #st.write("---")
 
 welcomeText()
 
@@ -28,9 +31,9 @@ def runModel(prompt):  #calling the model and running the function
     formatted_prompt = (
     f"A chat between a client looking for ONE vacation spot for an upcoming trip and an artificial intelligence assistant."
     f"The assistant gives a helpful and detailed travel itinerary for a random location that fits the client's specifications. It should include specific activities one can do in the location and the activities should be cost-appropriate for the budget. The response should not be cut off. After each day, put the rest of your response on a new line.\n"
-    f"Format your itinerary so that each day is separated by a newline character (\\n)"
+    f"Format your itinerary so that each day is separated by a newline character (\\n) Your response should be about 400-500 words long."
     f"### Human: {prompt} ### Assistant:") 
-    return lm.do(formatted_prompt) + lm.do("Continue your response, please.")  #returns a itinery in the shape of a paragraph
+    return lm.do(formatted_prompt)  #returns a itinery in the shape of a paragraph
 
     
 
@@ -95,7 +98,7 @@ for i in range(len(desiredRegions)):  #converting the regions into a giant strin
     regionStr += (" " + desiredRegions[i])
     if i != (len(desiredRegions) - 1):
         regionStr += ", "
-st.write("---")
+
 
 
 # methods
@@ -106,10 +109,10 @@ def returnOutput(prompt):  #the actual visual output
         prompt += " " + cultureTxt;
 
 
-    st.header("Prompt (Debug Purposes)")
-    st.write(prompt)
+    #st.header("Prompt (Debug Purposes)")
+    #st.write(prompt)
 
-    st.header("AI Response")
+    st.header("Wander-Bot's Itinerary")
     #placeholder = st.empty()
     with st.spinner('Generating...'):
         st.write(runModel(prompt))
