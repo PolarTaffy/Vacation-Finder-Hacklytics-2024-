@@ -4,6 +4,8 @@ import time
 import languagemodels as lm
 lm.config["max_ram"] = "4gb"
 
+#streamlit run vacationPlanner.py
+
 
 prompt = ""  # this will be used as the input to the generative AI
 
@@ -35,11 +37,11 @@ def dayList(prompt):  #this called the model and then splits the paragraph into 
 
 #number inputs
 numPeople = st.number_input("How many people are coming?", min_value=1)  #number of people going 
-dayCount = st.number_input("How long do you want to be away?", min_value=1) #days staying there 
+dayCount = st.number_input("How many days will your vacation be?", min_value=1) #days staying there 
 
     
 # slider inputs
-budget = st.slider("What's your budget?", 100, 10000)  #the budget starting from 100 to 10000
+budget = st.slider("What's your budget? ($USD)", 100, 10000)  #the budget starting from 100 to 10000
 urbanRural = st.slider("How urban/rural do you prefer your destination to be? 0 being very urban and 100 to being very rural.", 0, 100) # degree of rural/urban
 urbRur = ""
 if urbanRural >= 80:
@@ -69,17 +71,28 @@ else:
 
 cultureConnect = st.checkbox("Would you like to learn and experience the culture of the region?") #yes or no on culture
 if cultureConnect:
-    cultureSlider = st.slider("How cultural would you like the region to be? 0 being a little and 100 being a lot.", 0, 100)
+    cultureSlider = st.slider("How much regional culture would you like to engage in? 0 being a little and 100 being a lot.", 0, 100)
+    cultureTxt = ""
+    if cultureSlider >= 80:
+        cultureTxt = "The itinerary should include a lot of cultural activities for me to engage in."
+    elif cultureSlider >= 60:
+        cultureTxt = "The itinerary should include at least two cultural activities for me to engage in."
+    elif cultureSlider >= 40:
+        cultureTxt = "The itinerary should include one cultural activity for me to engage in."
+    elif cultureSlider >= 20:
+        cultureTxt = "If you'd like, you can include a cultural activity in the itinerary."
+    else:
+        cultureTxt = "Do not include any cultural activities in the itinerary."
 
 
 regions = ["North America", "South America", "Australia", "Asia", "Africa", "Europe"]
 desiredRegions = st.multiselect("What region of the world would you prefer?", regions) #can select multiple regions in which they can travel to
 st.write('You selected:', desiredRegions)
 regionStr = ""
-for i in range(desiredRegions):  #converting the regions into a giant string
-    regionStr += desiredRegions[i]
-    if i != (len(desiredRegions) + 1):
-        regionStr += " ,"
+for i in range(len(desiredRegions)):  #converting the regions into a giant string
+    regionStr += (" " + desiredRegions[i])
+    if i != (len(desiredRegions) - 1):
+        regionStr += ", "
 st.write("---")
 
 
@@ -87,6 +100,9 @@ st.write("---")
         
 def returnOutput(prompt):  #the actual visual output 
     prompt = "Plan an affordable vacation on a $" + str(budget) + ' for ' + str(numPeople) + ' people that lasts for ' + str(dayCount) + '. I want a ' + urbRur + ' place and ' + nightlife + " " + family + " These are the regions I prefer: " + regionStr + "."
+    if cultureConnect:
+        prompt += " " + cultureTxt;
+
 
     st.header("Prompt (Debug Purposes)")
     st.write(prompt)
