@@ -1,5 +1,6 @@
 import streamlit as st
-import modelComms
+import re
+import time
 import languagemodels as lm
 lm.config["max_ram"] = "4gb"
 
@@ -22,13 +23,21 @@ def runModel(prompt):
     f"### Human: {prompt} ### Assistant:")
     return lm.do(formatted_prompt)
 
+def dayList(prompt):
+    paragraph = runModel(prompt)
+    paraList = re.split(r'(?=\bDay\b)', paragraph)
+
+    return paraList
+    
+
 
 
 
 #THE USER INPUTS
-# TODO Add day count, split up responses into paragraphs, make region list functional
+# TODO Add day count, split up responses into paragraphs, make region list functional, ADD NAMES 
 #number inputs
 numPeople = st.number_input("How many people are coming?", min_value=1)  #number of people going 
+dayCount = st.number_input("How long do you want to be away?", min_value=1) #days staying there 
     
     
 budget = st.slider("What's your budget?", 100, 10000)  #the budget starting from 100 to 10000
@@ -67,20 +76,40 @@ if cultureConnect:
 regions = ["North America", "South America", "Australia", "Asia", "Africa", "Europe"]
 desiredRegions = st.multiselect("What region of the world would you prefer?", regions) #can select multiple regions in which they can travel to
 st.write('You selected:', desiredRegions)
+regionStr = ""
+for i in range(desiredRegions):
+    regionStr += desiredRegions[i]
+    if i != (len(desiredRegions) + 1):
+        regionStr += " ,"
+
 
 
 
 # methods
 def returnOutput(prompt):
     
-    prompt = "Plan an affordable vacation on a $" + str(budget) + ' for ' + str(numPeople) + ' people. I want a ' + urbRur + ' place and ' + nightlife + " " + family + " These are the regions I prefer: " + ". "
+    prompt = "Plan an affordable vacation on a $" + str(budget) + ' for ' + str(numPeople) + ' people that lasts for ' + str(dayCount) + '. I want a ' + urbRur + ' place and ' + nightlife + " " + family + " These are the regions I prefer: " + regionStr + "."
 
     st.header("Prompt (Debug Purposes)")
     st.write(prompt)
 
     st.header("AI Response")
-    st.write('Generating...')
-    st.write(runModel(prompt))
+    placeholder = st.empty()
+    placeholder.text("Generating...")
+    
+    daysActivity = dayList(prompt)
+    
+    placeholder.text("Here is your dream vacation!")
+    time.sleep(2)
+    placeholder.empty()
+
+    for i in range(daysActivity):
+        if i == 0:
+            st.write(daysActivity[i])
+            continue
+        st.write("- " + daysActivity[i])
+
+        
 
 
 st.divider()
