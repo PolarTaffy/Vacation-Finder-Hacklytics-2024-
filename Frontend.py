@@ -6,27 +6,28 @@ lm.config["max_ram"] = "4gb"
 
 
 
-prompt = ""
+prompt = ""  # this will be used as the input to the generative AI
 
-def welcomeText():   
+def welcomeText():   #just a welcome to the site
     st.title("Tour Around the World!")
+    st.write("---")
     st.header("Let's talk about your trip details.")
     st.subheader("Fill out this form to generate a dream vacation for you!")
+    st.write("---")
 
 welcomeText()
 
 
-def runModel(prompt):
+def runModel(prompt):  #calling the model and running the function
     formatted_prompt = (
     f"A chat between a client looking for ONE vacation spot for an upcoming trip and an artificial intelligence assistant."
     f"The assistant gives a helpful and detailed travel itinerary for a random location that fits the client's specifications. It should include specific activities one can do in the location and the activities should be cost-appropriate for the budget. The response should not be cut off. After each day, put the rest of your response on a new line.\n"
     f"### Human: {prompt} ### Assistant:")
-    return lm.do(formatted_prompt)
+    return lm.do(formatted_prompt)  #returns a itinery in the shape of a paragraph
 
-def dayList(prompt):
+def dayList(prompt):  #this called the model and then splits the paragraph into a list based on the word Day
     paragraph = runModel(prompt)
     paraList = re.split(r'(?=\bDay\b)', paragraph)
-
     return paraList
     
 
@@ -35,11 +36,13 @@ def dayList(prompt):
 
 #THE USER INPUTS
 # TODO Add day count, split up responses into paragraphs, make region list functional, ADD NAMES 
+
 #number inputs
 numPeople = st.number_input("How many people are coming?", min_value=1)  #number of people going 
 dayCount = st.number_input("How long do you want to be away?", min_value=1) #days staying there 
+
     
-    
+# slider inputs
 budget = st.slider("What's your budget?", 100, 10000)  #the budget starting from 100 to 10000
 urbanRural = st.slider("How urban/rural do you prefer your destination to be? 0 being very urban and 100 to being very rural.", 0, 100) # degree of rural/urban
 urbRur = ""
@@ -68,7 +71,7 @@ if familyFriendly:
 else:
     family = "The location does not have to family friendly."
 
-cultureConnect = st.checkbox("Would you like to learn and experience the culture of the region?")
+cultureConnect = st.checkbox("Would you like to learn and experience the culture of the region?") #yes or no on culture
 if cultureConnect:
     cultureSlider = st.slider("How cultural would you like the region to be? 0 being a little and 100 being a lot.", 0, 100)
 
@@ -77,17 +80,17 @@ regions = ["North America", "South America", "Australia", "Asia", "Africa", "Eur
 desiredRegions = st.multiselect("What region of the world would you prefer?", regions) #can select multiple regions in which they can travel to
 st.write('You selected:', desiredRegions)
 regionStr = ""
-for i in range(desiredRegions):
+for i in range(desiredRegions):  #converting the regions into a giant string
     regionStr += desiredRegions[i]
     if i != (len(desiredRegions) + 1):
         regionStr += " ,"
-
+st.write("---")
 
 
 
 # methods
-def returnOutput(prompt):
-    
+        
+def returnOutput(prompt):  #the actual visual output 
     prompt = "Plan an affordable vacation on a $" + str(budget) + ' for ' + str(numPeople) + ' people that lasts for ' + str(dayCount) + '. I want a ' + urbRur + ' place and ' + nightlife + " " + family + " These are the regions I prefer: " + regionStr + "."
 
     st.header("Prompt (Debug Purposes)")
@@ -97,28 +100,22 @@ def returnOutput(prompt):
     placeholder = st.empty()
     placeholder.text("Generating...")
     
-    daysActivity = dayList(prompt)
-    
+    daysActivity = dayList(prompt)  #calls a function which calls a function all to receive a list 
+
     placeholder.text("Here is your dream vacation!")
     time.sleep(2)
     placeholder.empty()
 
-    for i in range(daysActivity):
+    for i in range(daysActivity):  #prints the itinery based on Day 1, Day 2, etc. as a list
         if i == 0:
             st.write(daysActivity[i])
             continue
         st.write("- " + daysActivity[i])
 
-        
-
-
 st.divider()
-if st.button("Plan my vacation!"):
+if st.button("Plan my vacation!"):  #radio button to initialize things
     returnOutput("")
-
-# feed the promp into
-
-
+st.write("---")
 
 #side bar links PUT YOUR INFO
 def links_section():
@@ -148,7 +145,6 @@ def links_section():
     email_html1 = f'<a href="{"thomasevan1248@gmail.com"}"><img src = "{"https://logowik.com/content/uploads/images/513_email.jpg"}" alt = "Email" width = "75" height = "75">'
     st.sidebar.markdown(email_html1, unsafe_allow_html=True)
 
-    
 links_section()
 
 
