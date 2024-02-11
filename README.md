@@ -10,7 +10,6 @@ This Streamlit-based application allows users to interact with WanderBot to plan
 
 To run this program, ensure you have Python installed. You'll also need to install Streamlit and the required language models. You can install the necessary dependencies using pip:
 
-```bash
 pip install streamlit
 pip install languagemodels
 
