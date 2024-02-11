@@ -1,5 +1,8 @@
 import streamlit as st
-from modelComms import askGPT
+import modelComms
+import languagemodels as lm
+lm.config["max_ram"] = "4gb"
+
 
 
 prompt = ""
@@ -7,13 +10,23 @@ prompt = ""
 def welcomeText():   
     st.title("Tour Around the World!")
     st.header("Let's talk about your trip details.")
-    st.subheader("Fill out this form to generate a dream vacatio for you!")
+    st.subheader("Fill out this form to generate a dream vacation for you!")
 
 welcomeText()
 
 
-#THE USER INPUTS
+def runModel(prompt):
+    formatted_prompt = (
+    f"A chat between a client looking for ONE vacation spot for an upcoming trip and an artificial intelligence assistant."
+    f"The assistant gives a helpful and detailed travel itinerary for a random location that fits the client's specifications. It should include specific activities one can do in the location and the activities should be cost-appropriate for the budget. The response should not be cut off. After each day, put the rest of your response on a new line.\n"
+    f"### Human: {prompt} ### Assistant:")
+    return lm.do(formatted_prompt)
 
+
+
+
+#THE USER INPUTS
+# TODO Add day count, split up responses into paragraphs, make region list functional
 #number inputs
 numPeople = st.number_input("How many people are coming?", min_value=1)  #number of people going 
     
@@ -60,15 +73,14 @@ st.write('You selected:', desiredRegions)
 # methods
 def returnOutput(prompt):
     
-    prompt = "Plan an affordable vacation on a $" + str(budget) + ' for ' + str(numPeople) + ' people. I want a ' + urbRur + ' place and ' + nightlife + " " + family + " These are the regions I prefer: " + desiredRegions + ". "
-    aiResponse = askGPT(prompt)
+    prompt = "Plan an affordable vacation on a $" + str(budget) + ' for ' + str(numPeople) + ' people. I want a ' + urbRur + ' place and ' + nightlife + " " + family + " These are the regions I prefer: " + ". "
 
     st.header("Prompt (Debug Purposes)")
     st.write(prompt)
 
     st.header("AI Response")
     st.write('Generating...')
-    st.write(aiResponse)
+    st.write(runModel(prompt))
 
 
 st.divider()
@@ -109,4 +121,7 @@ def links_section():
 
     
 links_section()
+
+
+
 
